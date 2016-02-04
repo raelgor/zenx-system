@@ -1,0 +1,33 @@
+{
+  "name": "zenx-system",
+  "version": "0.0.1",
+  "description": "The core of a ZenX system.",
+  "icon": "http://tournouatichu.com/logolight.png",
+  "license": "MIT",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raelgor/zenx-system.git"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "colors": "^1.1.2",
+    "inquirer": "^0.11.4",
+    "mongodb": "^2.1.4",
+    "ws": "^1.0.1",
+    "zenx": "latest"
+  },
+  "scripts": {
+    "test": "mocha --es_staging"
+  },
+  "author": {
+    "name": "Kosmas Papadatos",
+    "email": "kosmas.papadatos@gmail.com",
+    "url": "https://plus.google.com/+KosmasPapadatos"
+  },
+  "devDependencies": {
+    "co": "^4.6.0",
+    "mocha": "^2.3.4",
+    "ws": "^1.0.1"
+  }
+}
