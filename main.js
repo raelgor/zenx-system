@@ -1,51 +1,39 @@
-/* global fs */
-/* global inquirer */
+/* global init */
 /* global log */
 'use strict';
 
-global.log = require('./src/log');
-global.mongodb = require('mongodb');
-global.co = require('co');
+// Libraries
+global.load_configuration = require('./src/load_configuration');
+global.connect_to_mongo = require('./src/connect_to_mongo');
+global.load_client_list = require('./src/load_client_list');
+global.load_core_creds = require('./src/load_core_creds');
+global.make_mongo_url = require('./src/make_mongo_url');
+global.load_scripts = require('./src/load_scripts');
+global.start_server = require('./src/start_server');
 global.inquirer = require('inquirer');
+global.mongodb = require('mongodb');
+global.init = require('./src/init');
+global.assert = require('assert');
+global.colors = require('colors');
+global.log = require('./src/log');
+global.path = require('path');
+global.http = require('http');
+global.co = require('co');
+global.ws = require('ws');
 global.fs = require('fs');
+
+// Core database connection
+global.dbc = null;
+
+global.config = {};
+   
+for(let property of ['core_credentials', 'clients'])
+    Object.defineProperty(global.config, property, 
+        {enumerable:false,writable:true,value:null});
 
 log('Starting...');
 
-try {
-    
-    global.config = require('./config');
-    log('Configuration loaded. Peachy!');
-    
-} catch (error) {
-    
-    log.error(`No configuration file provided.`);
-    log.error(`Please consult README.md or config.js.example and provide a 'config.js' or 'config.json' file with information about the core system database.`);
-    
-    inquirer.prompt([
-        {
-            name: 'mkconfig',
-            message: 'Do you want to input mongo credentials now? (y/n)',
-            type: 'input',
-            validate: val => { return ~['y','n'].indexOf(val) ? true : `Please type 'y' or 'n'` }
-        }], answer => {
-            if(answer.mkconfig === 'y')
-                inquirer.prompt([
-                    { name: 'host', message: 'Host: ' },
-                    { name: 'port', message: 'Port: ' },
-                    { name: 'user', message: 'User: ' },
-                    { name: 'password', message: 'Password: ', type: 'password' },
-                ], answers => {
-                    
-                    log('Saving new credentials...');
-                    fs.writeFileSync('./config.json', JSON.stringify(answers));
-                    
-                    log('Trying to connect...');
-                    
-                })
-            else {
-                log.warn('Exiting...');
-                process.exit();
-            }
-        });
-    
-}
+init();
+
+//process.on('uncaughtException', error => 
+//    log.error('System main process encountered an error: ', JSON.stringify(error)));
