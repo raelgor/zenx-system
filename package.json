@@ -18,7 +18,8 @@
     "zenx": "latest"
   },
   "scripts": {
-    "test": "mocha --es_staging"
+    "test": "mocha --es_staging",
+    "start": "node --harmony main"
   },
   "author": {
     "name": "Kosmas Papadatos",

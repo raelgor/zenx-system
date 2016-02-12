@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Find current dir
+BASEDIR=$(dirname $0)
+
+# Start bs app
+cd $BASEDIR
+cd ..
+node --harmony ./hook $1

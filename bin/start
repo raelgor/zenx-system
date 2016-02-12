@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Find current dir
+BASEDIR=$(dirname $0)
+
+# Start bs app
+cd $BASEDIR
+cd .. && nohup node --max-old-space-size=3072 --harmony main > ./log/main.log 2>&1 </dev/null &

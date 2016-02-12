@@ -13,9 +13,6 @@ function load_core_creds() {
     
     try {
         
-        Object.defineProperty(global.config, 'core_credentials', 
-            {enumerable:false,writable:true,value:null});
-        
         global.config.core_credentials = require('../config').core_credentials;
         log.green('Core credentials loaded.');
         

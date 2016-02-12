@@ -21,8 +21,18 @@ function listen() {
             }
         }
     ], input => {
+        
+        let target = input.cmd.match(/^([^ ]*)/)[1];
+        
         global.___listening = false;
-        global.cli[input.cmd.match(/^([^ ]*)/)[1]].handler(input.cmd).then(listen);
+        
+        target &&
+        target in global.cli 
+        ?
+        global.cli[target].handler(input.cmd).then(listen) 
+        :
+        listen();
+        
     });
     
 }

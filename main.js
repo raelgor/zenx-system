@@ -2,6 +2,10 @@
 /* global log */
 'use strict';
 
+process.title = 'zenx-system';
+
+require('./src/hook_stdout');
+
 // Libraries
 global.load_configuration = require('./src/load_configuration');
 global.connect_to_mongo = require('./src/connect_to_mongo');
@@ -26,7 +30,9 @@ global.fs = require('fs');
 global.dbc = null;
 
 global.config = {};
-   
+global.sockets = [];
+global.hookSockets = [];
+
 for(let property of ['core_credentials', 'clients'])
     Object.defineProperty(global.config, property, 
         {enumerable:false,writable:true,value:null});
